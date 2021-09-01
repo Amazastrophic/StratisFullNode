@@ -39,5 +39,16 @@ namespace Stratis.Bitcoin.Features.SignalR
                 (Broadcaster: typeof(WalletInfoBroadcaster), ClientEventBroadcasterSettings:Settings)
             };
         }
+        
+        public static void ConfigureSignalRForAmaza(SignalROptions options)
+        {
+            options.EventsToHandle = EventsToHandle;
+
+            options.ClientEventBroadcasters = new[]
+            {
+                (Broadcaster: typeof(StakingBroadcaster), ClientEventBroadcasterSettings: Settings),
+                (Broadcaster: typeof(WalletInfoBroadcaster), ClientEventBroadcasterSettings:Settings)
+            };
+        }
     }
 }

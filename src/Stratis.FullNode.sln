@@ -187,6 +187,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stratis.External.Masternode
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stratis.Features.Unity3dApi", "Stratis.Features.Unity3dApi\Stratis.Features.Unity3dApi.csproj", "{B08D2057-F48D-4E72-99F4-95A35E6E0DFD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stratis.Amaza", "Stratis.Amaza\Stratis.Amaza.csproj", "{4F8DE5DC-0070-4B61-8729-4051B0758BBA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -493,6 +495,10 @@ Global
 		{B08D2057-F48D-4E72-99F4-95A35E6E0DFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B08D2057-F48D-4E72-99F4-95A35E6E0DFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B08D2057-F48D-4E72-99F4-95A35E6E0DFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F8DE5DC-0070-4B61-8729-4051B0758BBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F8DE5DC-0070-4B61-8729-4051B0758BBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F8DE5DC-0070-4B61-8729-4051B0758BBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F8DE5DC-0070-4B61-8729-4051B0758BBA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

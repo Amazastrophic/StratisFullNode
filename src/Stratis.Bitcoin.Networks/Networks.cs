@@ -27,5 +27,13 @@ namespace Stratis.Bitcoin.Networks
                 return new NetworksSelector(() => new StraxMain(), () => new StraxTest(), () => new StraxRegTest());
             }
         }
+        
+        public static NetworksSelector Amaza
+        {
+            get
+            {
+                return new NetworksSelector(() => new AmazaMain(), () => new AmazaTest(), () => new AmazaRegTest());
+            }
+        }
     }
 }
