@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -197,14 +198,54 @@ namespace Stratis.Bitcoin.Configuration.Settings
                 return this.addNode.ToList();
             }
         }
+        public  struct DNSHelper{
+            public string IP;
+            public string PORT;
+        }
 
+      //  public struct DNSHelper{
+         //   public string IP;
+           // public string PORT;
+       // }
         /// <summary>
         /// Get the default configuration.
         /// </summary>
         /// <param name="builder">The string builder to add the settings to.</param>
         /// <param name="network">The network to base the defaults off.</param>
         public static void BuildDefaultConfigurationFile(StringBuilder builder, Network network)
-        {
+        { 
+            WebClient client = new WebClient();
+           Stream stream = client.OpenRead("https://raw.githubusercontent.com/Amazastrophic/Time-Shards/main/SeedNodes.txt");
+           StreamReader reader = new StreamReader(stream);
+           string content = reader.ReadToEnd();
+           string[] CleanedList = content.Split ( '\n');
+           string ip="NONE IP";
+           string port="NONE Port";
+           DNSHelper[] DNSHelpers = new DNSHelper[CleanedList.Length-1];
+           for(int i =0; i<CleanedList.Length;i++){
+               if(CleanedList.Length<0){
+               }
+               ip = CleanedList[i];
+               int index = ip.IndexOf("//");
+               if (index >= 0){
+                   ip = ip.Substring(0, index);
+               }
+               else{
+                   continue;
+               }
+               string[] splitlist = ip.Split ( ':');
+               if(splitlist.Length>1)
+               {
+                   port=splitlist[1];
+               } 
+               DNSHelpers[i].PORT=port; 
+               int index2 = ip.IndexOf(":");
+               if (index2 >= 0)
+               {
+                   ip = ip.Substring(0, index2);
+               }
+               DNSHelpers[i].IP=ip;
+           }
             builder.AppendLine("####ConnectionManager Settings####");
             builder.AppendLine($"#The default network port to connect to. Default { network.DefaultPort }.");
             builder.AppendLine($"#port={network.DefaultPort}");
@@ -216,6 +257,10 @@ namespace Stratis.Bitcoin.Configuration.Settings
             builder.AppendLine($"#connect=<ip:port>");
             builder.AppendLine($"#Add a node to connect to and attempt to keep the connection open. Can be specified multiple times.");
             builder.AppendLine($"#addnode=<ip:port>");
+            for(int n =0; n<DNSHelpers.Length;n++)
+            {
+               builder.AppendLine($"addnode=" + DNSHelpers[n].IP+":"+DNSHelpers[n].PORT);
+            }
             builder.AppendLine($"#Bind to given address. Use [host]:port notation for IPv6. Can be specified multiple times.");
             builder.AppendLine($"#bind=<ip:port>");
             builder.AppendLine($"#Bind to given address and whitelist peers connecting to it. Use [host]:port notation for IPv6. Can be specified multiple times.");
