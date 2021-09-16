@@ -57,7 +57,6 @@ namespace Stratis.Bitcoin.Networks
             
             this.GenesisTime = 1631727623;
             this.GenesisNonce = 1;
-            this.GenesisBits = 0x1d00ffff;
             this.GenesisVersion = 1;
             this.GenesisReward = Money.Zero;
             
@@ -104,7 +103,7 @@ namespace Stratis.Bitcoin.Networks
                 powAllowMinDifficultyBlocks: false,
                 posNoRetargeting: false,
                 powNoRetargeting: false,
-                powLimit: new Target(new uint256("00ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff")), 
+                powLimit: new Target(new uint256("00005fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff")), 
                 minimumChainWork:null,
                 isProofOfStake: true,
                 lastPowBlock:  10000000,
