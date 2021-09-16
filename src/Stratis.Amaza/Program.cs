@@ -31,7 +31,6 @@ namespace Stratis.Amaza
                 {
                     MinProtocolVersion = ProtocolVersion.PROVEN_HEADER_VERSION
                 };
-                
                 Console.Title = $"Amaza Full Node {nodeSettings.Network.NetworkType}";
 
                 DbType dbType = nodeSettings.GetDbType();

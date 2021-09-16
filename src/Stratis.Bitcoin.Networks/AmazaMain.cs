@@ -104,7 +104,7 @@ namespace Stratis.Bitcoin.Networks
                 powAllowMinDifficultyBlocks: false,
                 posNoRetargeting: false,
                 powNoRetargeting: false,
-                powLimit: new Target(new uint256("00ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff")),
+                powLimit: new Target(new uint256("00ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff")), 
                 minimumChainWork:null,
                 isProofOfStake: true,
                 lastPowBlock:  10000000,
