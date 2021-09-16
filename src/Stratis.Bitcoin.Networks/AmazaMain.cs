@@ -110,7 +110,7 @@ namespace Stratis.Bitcoin.Networks
                 lastPowBlock:  10000000,
                 proofOfStakeLimit: new BigInteger(uint256.Parse("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff").ToBytes(false)),
                 proofOfStakeLimitV2: new BigInteger(uint256.Parse("000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffff").ToBytes(false)),
-                proofOfStakeReward: Money.Coins(20)
+                proofOfStakeReward: Money.Coins(20) 
             );
 
             this.Consensus.PosEmptyCoinbase = false;

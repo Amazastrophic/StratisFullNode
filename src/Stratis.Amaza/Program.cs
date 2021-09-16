@@ -31,8 +31,7 @@ namespace Stratis.Amaza
                 {
                     MinProtocolVersion = ProtocolVersion.PROVEN_HEADER_VERSION
                 };
-
-                // Set the console window title to identify this as a Strax full node (for clarity when running Strax and Cirrus on the same machine).
+                
                 Console.Title = $"Amaza Full Node {nodeSettings.Network.NetworkType}";
 
                 DbType dbType = nodeSettings.GetDbType();
@@ -42,7 +41,7 @@ namespace Stratis.Amaza
                     .UseBlockStore(dbType)
                     .UsePosConsensus(dbType)
                     .UseMempool()
-                    .UseColdStakingWallet()
+                    .UseColdStakingWallet() 
                     .AddSQLiteWalletRepository()
                     .AddPowPosMining(true)
                     .UseApi()
