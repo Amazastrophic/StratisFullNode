@@ -55,9 +55,8 @@ namespace Stratis.Bitcoin.Networks
 
             var consensusFactory = new PosConsensusFactory();
             
-            this.GenesisTime = 1631727623;
+            this.GenesisTime = 1632296362;
             this.GenesisNonce = 1;
-            this.GenesisBits = 0x1d00ffff;
             this.GenesisVersion = 1;
             this.GenesisReward = Money.Zero;
             
@@ -98,19 +97,19 @@ namespace Stratis.Bitcoin.Networks
                 coinbaseMaturity: 30,
                 premineHeight: 2,
                 premineReward: Money.Coins(1000000000),
-                proofOfWorkReward: Money.Coins(60),
+                proofOfWorkReward: Money.Coins(30),
                 powTargetTimespan: TimeSpan.FromSeconds( 4 * 60 * 60),
                 targetSpacing: TimeSpan.FromSeconds(30),
                 powAllowMinDifficultyBlocks: false,
                 posNoRetargeting: false,
                 powNoRetargeting: false,
-                powLimit: new Target(new uint256("00ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff")), 
+                powLimit: new Target(new uint256("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff")), // Adjusted difficulty 
                 minimumChainWork:null,
                 isProofOfStake: true,
                 lastPowBlock:  10000000,
                 proofOfStakeLimit: new BigInteger(uint256.Parse("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff").ToBytes(false)),
                 proofOfStakeLimitV2: new BigInteger(uint256.Parse("000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffff").ToBytes(false)),
-                proofOfStakeReward: Money.Coins(20) 
+                proofOfStakeReward: Money.Coins(15) 
             );
 
             this.Consensus.PosEmptyCoinbase = false;
