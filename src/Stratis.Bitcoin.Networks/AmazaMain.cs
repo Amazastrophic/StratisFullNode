@@ -14,30 +14,26 @@ namespace Stratis.Bitcoin.Networks
     {
         public AmazaMain()
         {
-            var messageStart = new byte[4];
-            messageStart[0] = 0x70;
-            messageStart[1] = 0x35;
-            messageStart[2] = 0x22;
-            messageStart[3] = 0x05;
-            uint magic = BitConverter.ToUInt32(messageStart, 0); 
+            this.Magic = 0xD9B4BEF9;
             this.Name = "AmazaMain";
             this.NetworkType = NetworkType.Mainnet;
-            this.Magic = magic;
             this.DefaultPort = 17105;
             this.DefaultMaxOutboundConnections = 16;
-            this.DefaultMaxInboundConnections = 200;
+            this.DefaultMaxInboundConnections = 100;
             this.DefaultRPCPort = 17104;
             this.DefaultAPIPort = 17103;
             this.DefaultSignalRPort = 17102;
             this.MaxTipAge = 2 * 60 * 60;
-            this.MinTxFee = 1000;
-            this.FallbackFee = 1000;
-            this.MinRelayTxFee = 1000;
+            this.MinTxFee = 10000;
+            this.FallbackFee = 10000;
+            this.MinRelayTxFee = 10000;
+            this.MaxTimeOffsetSeconds = 4200;
+            this.MaxTipAge = 86400;
             this.RootFolderName = AmazaNetwork.AmazaRootFolderName;
             this.DefaultConfigFilename = AmazaNetwork.AmazaDefaultConfigFilename;
             this.MaxTimeOffsetSeconds = 25 * 60;
             this.CoinTicker = "TIMES";
-            this.DefaultBanTimeSeconds = 11250; 
+            this.DefaultBanTimeSeconds = 60 * 60 * 24; // 24 Hours
             
             this.Federations = new Federations();
             this.Federations.RegisterFederation(new Federation(new[]
@@ -48,27 +44,26 @@ namespace Stratis.Bitcoin.Networks
                 new PubKey("0288845744df1b85836c19092599bc151ba4c0ea6e73224d47af0e47bbaa77a98f"),
                 new PubKey("032837835af1f28e31c652576b184c49d512a751644755da4e6713976d137e7161")}));
             
-            var consensusFactory = new ConsensusFactory();
-            
-            this.GenesisTime = 1630829115; 
-            this.GenesisNonce = 1; // Set to 1 until correct value found
-            this.GenesisBits = 0x0000000f; // The difficulty target
-            this.GenesisVersion = 1;
-            this.GenesisReward = Money.Zero;
-
-            Block genesisBlock = AmazaNetwork.CreateGenesisBlock(consensusFactory, this.GenesisTime, this.GenesisNonce, this.GenesisBits, this.GenesisVersion, this.GenesisReward, "sagetowers.com");
-
-            this.Genesis = genesisBlock;
-
-            // Taken from Stratis.
             var consensusOptions = new PosConsensusOptions(
                 maxBlockBaseSize: 1_000_000,
                 maxStandardVersion: 2,
-                maxStandardTxWeight: 150_000,
+                maxStandardTxWeight: 100_000,
                 maxBlockSigopsCost: 20_000,
-                maxStandardTxSigopsCost: 20_000 / 2, 
+                maxStandardTxSigopsCost: 20_000 / 5,
                 witnessScaleFactor: 4
-           );
+            );
+
+            var consensusFactory = new PosConsensusFactory();
+            
+            this.GenesisTime = 1631727623;
+            this.GenesisNonce = 1;
+            this.GenesisBits = 0x1d00ffff;
+            this.GenesisVersion = 1;
+            this.GenesisReward = Money.Zero;
+            
+            Block genesisBlock = AmazaNetwork.CreateGenesisBlock(consensusFactory, this.GenesisTime, this.GenesisNonce, this.GenesisBits, this.GenesisVersion, this.GenesisReward, "https://sagetowers.com"); // Genesis Text Hardcoded in AmazaNetwork
+
+            this.Genesis = genesisBlock;
 
             var buriedDeployments = new BuriedDeploymentsArray
             {
@@ -89,33 +84,33 @@ namespace Stratis.Bitcoin.Networks
                 consensusOptions: consensusOptions,
                 coinType: 9001, // https://github.com/satoshilabs/slips/blob/master/slip-0044.md
                 hashGenesisBlock: genesisBlock.GetHash(),
-                subsidyHalvingInterval: 100000,
+                subsidyHalvingInterval: 2500000,
                 majorityEnforceBlockUpgrade: 750,
                 majorityRejectBlockOutdated: 950,
                 majorityWindow: 1000,
                 buriedDeployments: buriedDeployments,
                 bip9Deployments: bip9Deployments,
                 bip34Hash: null,
-                minerConfirmationWindow: 1008, // https://wiki.bitcoinsv.io/index.php/Difficulty we readjust weekly
+                minerConfirmationWindow: 1008, // https://wiki.bitcoinsv.io/index.php/Difficulty we read adjust weekly
                 maxReorgLength: 750,
                 defaultAssumeValid: null, // TODO: Set this once some checkpoint candidates have elapsed
-                maxMoney: 1500000000 * Money.COIN, // 1.5b , one billion genesis so 500,000,000 to farm so 66% of total funds are in genisis block
-                coinbaseMaturity: 10,
+                maxMoney: 1500000000 * Money.COIN, // 1.5b , one billion genesis so 500,000,000 to farm so 66% of total funds are in genesis block
+                coinbaseMaturity: 30,
                 premineHeight: 2,
                 premineReward: Money.Coins(1000000000),
-                proofOfWorkReward: Money.Coins(10),
-                powTargetTimespan: TimeSpan.FromSeconds(7 * 24 * 60 * 60), //604800
+                proofOfWorkReward: Money.Coins(60),
+                powTargetTimespan: TimeSpan.FromSeconds( 4 * 60 * 60),
                 targetSpacing: TimeSpan.FromSeconds(30),
                 powAllowMinDifficultyBlocks: false,
                 posNoRetargeting: false,
                 powNoRetargeting: false,
-                powLimit: new Target(new uint256("0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff")),
-                minimumChainWork: null,
+                powLimit: new Target(new uint256("00ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff")),
+                minimumChainWork:null,
                 isProofOfStake: true,
-                lastPowBlock: 250,
+                lastPowBlock:  10000000,
                 proofOfStakeLimit: new BigInteger(uint256.Parse("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff").ToBytes(false)),
                 proofOfStakeLimitV2: new BigInteger(uint256.Parse("000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffff").ToBytes(false)),
-                proofOfStakeReward: Money.Coins(10)
+                proofOfStakeReward: Money.Coins(20)
             );
 
             this.Consensus.PosEmptyCoinbase = false;
