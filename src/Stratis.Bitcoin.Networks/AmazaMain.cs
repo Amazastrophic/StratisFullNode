@@ -128,11 +128,10 @@ namespace Stratis.Bitcoin.Networks
             this.Base58Prefixes[(int)Base58Type.ASSET_ID] = new byte[] { 23 };
             this.Base58Prefixes[(int)Base58Type.COLORED_ADDRESS] = new byte[] { 0x13 };
 
-            this.Checkpoints = new Dictionary<int, CheckpointInfo>
-            {
-                // Example { 0, new CheckpointInfo(new uint256("0xebe158d09325c470276619ebc5f7f87c98c0ed4b211c46a17a6457655811d082"), new uint256("0x0000000000000000000000000000000000000000000000000000000000000000")) },
+           this.Checkpoints = new Dictionary<int, CheckpointInfo>
+            { 
             };
-            
+           
             this.Bech32Encoders = new Bech32Encoder[2];
             var encoder = new Bech32Encoder("amaza");
             this.Bech32Encoders[(int)Bech32Type.WITNESS_PUBKEY_ADDRESS] = encoder;
@@ -143,10 +142,11 @@ namespace Stratis.Bitcoin.Networks
             this.SeedNodes = new List<NetworkAddress>
             {
                 new NetworkAddress(IPAddress.Parse("207.148.15.3"), 17105),
+                new NetworkAddress(IPAddress.Parse("45.76.230.173"), 17105),
             };
 
             this.StandardScriptsRegistry = new StraxStandardScriptsRegistry();
-        
+            
             AmazaNetwork.RegisterRules(this.Consensus);
             AmazaNetwork.RegisterMempoolRules(this.Consensus);
         }
